@@ -1,0 +1,1 @@
+jq -r '.pipelines[] | .id as $pipeline_id | .name as $pipeline_name | .issues[] | [$pipeline_id, $pipeline_name, .issue_number, .position, .is_epic, .estimate.value] | @tsv'
