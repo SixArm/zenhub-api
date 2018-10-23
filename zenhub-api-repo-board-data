@@ -1,0 +1,23 @@
+#!/bin/sh
+
+##
+# ZenHub export dump
+#
+# Syntax:
+#
+#     $ zenhub-api-repo-board-data <zenhub-url> <api-token> <repo-id> 
+#
+# Example:
+#
+#     $ zenhub-api-repo-board-data "https://api.zenhub.io" ABCDEF 123456789
+#
+# See https://github.com/ZenHubIO/API
+##
+
+zenhub_url="$1"
+api_token="$2"
+repo_id="$3"
+
+auth="X-Authentication-Token: $api_token" 
+url=""$zenhub_url/p1/repositories/$repo_id/board"
+curl -sSL -H "$auth" "$url"

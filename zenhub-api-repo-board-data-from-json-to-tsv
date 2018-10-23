@@ -1,0 +1,24 @@
+#!/bin/sh
+
+##
+# ZenHub repo board data from JSON to TSV
+#
+# Syntax:
+#
+#     $ ... | zenhub-repo-board-data-from-json-to-tsv 
+#
+# Example:
+#
+#     $ cat example.json | zenhub-repo-board-data-from-json-to-tsv
+#
+# Example output:
+#
+#     595d430add03f01d32460080  New Issues  279  0  true   40
+#     595d430add03f01d32460080  New Issues  142     false
+#     595d430add03f01d32460081  Backlog     303  3  false  40
+#     595d430add03f01d32460082  To Do       380  0  true   1
+#     595d430add03f01d32460082  To Do       284  2  false
+#     595d430add03f01d32460082  To Do       329  7  false  8
+##
+
+jq -r '.pipelines[] | .id as $pipeline_id | .name as $pipeline_name | .issues[] | [$pipeline_id, $pipeline_name, .issue_number, .position, .is_epic, .estimate.value] | @tsv'
